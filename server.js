@@ -4,6 +4,8 @@ const bodyParser = require("body-parser");
 const passport = require("passport");
 
 const users = require("./routes/api/users");
+const voter = require("./routes/api/voters");
+
 
 const app = express();
 
@@ -22,7 +24,10 @@ const db = require("./config/keys").mongoURI;
 mongoose
   .connect(
     db,
-    { useNewUrlParser: true }
+    { 
+      useNewUrlParser: true,
+      useUnifiedTopology: true 
+    }
   )
   .then(() => console.log("MongoDB successfully connected"))
   .catch(err => console.log(err));
@@ -35,6 +40,7 @@ require("./config/passport")(passport);
 
 // Routes
 app.use("/api/users", users);
+app.use("/api/voters", voter);
 
 const port = process.env.PORT || 5000;
 

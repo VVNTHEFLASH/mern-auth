@@ -15,6 +15,14 @@ const UserSchema = new Schema({
     type: String,
     required: true
   },
+  votedParty:{
+    type: String,
+    required: false
+  },
+  voteStatus: {
+    type: Boolean,
+    required: true
+  },
   date: {
     type: Date,
     default: Date.now
