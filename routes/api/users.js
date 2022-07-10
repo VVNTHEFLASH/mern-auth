@@ -11,6 +11,7 @@ const validateLoginInput = require("../../validation/login");
 
 // Load User model
 const User = require("../../models/User");
+const { countDocuments } = require("../../models/User");
 
 router.put("/:id", (req, res) => {
   const id = req.params.id;
@@ -23,8 +24,23 @@ router.put("/:id", (req, res) => {
 })
 //route put api/users/update
 router.get("/", (req,res) => {
-  User.find().then(data => {
-    console.log("count")
+  User.estimatedDocumentCount({}).then(count => {
+    console.log(`Total Candidates: ${count}`)
+  })
+  User.find({ votedParty: "DMK"}).countDocuments().then(count => {
+    console.log(`DMK Vote Count ${count}`)
+  })
+  User.find({ votedParty: "ADMK"}).countDocuments().then(count => {
+    console.log(`ADMK Vote Count ${count}`)
+  })
+  User.find({ votedParty: "BJP"}).countDocuments().then(count => {
+    console.log(`BJP Vote Count ${count}`)
+  })
+  User.find({ votedParty: "NOTA"}).countDocuments().then(count => {
+    console.log(`NOTA Vote Count ${count}`)
+  })
+  User.find({ votedParty: "NV"}).countDocuments().then(count => {
+    console.log(`Not-Voted Count ${count}`)
   })
 })
 
