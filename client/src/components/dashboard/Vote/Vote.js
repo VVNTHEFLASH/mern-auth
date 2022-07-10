@@ -6,10 +6,16 @@ import VoteForm from "./VoteForm";
 
 export default function Vote(props) {
 
-    const [filteredParty, setFilteredParty] = useState("DMK")
+    const [filteredParty, setFilteredParty] = useState("DMK");
 
     const filterChangeHandler = party => {
         setFilteredParty(party)
+    }
+
+    const [newId, setNewId] = useState("");
+    const idChangeHandler = (e) => {
+        setNewId(e.target.value)
+
     }
 
     const onSubmitHandler = (e) => {
@@ -21,10 +27,12 @@ export default function Vote(props) {
         }
         console.log(votes);
 
-        axios.put("/api/voters/" + props.match.params.id, votes)
-            .then(result => console.log(result.data));
+        axios.put(`/api/users/${newId}`, votes)
+            .then(result => {
+                alert("Voted")
+            });
 
-        // window.location = "/dashboard#/vote";
+        window.location = "/dashboard#/liveresult";
 }  
   return (
     <div>
@@ -38,15 +46,17 @@ export default function Vote(props) {
                         <th>Party</th>
                         <th>Leader Name</th>
                         <th>Action</th>
+                        <th>Unique ID</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr className='orange-text'>
                         <td>DMK</td>
                         <td>M.K.Stalin</td>
-                        <td rowSpan={2} colSpan={2}>
+                        <td rowSpan={2}>
                             <VoteForm selected={filteredParty} onChangeFilter={filterChangeHandler} />
                         </td>
+                        <td><input type="text" onChange={idChangeHandler} value={newId}/></td>
                         {/* <td className='btn orange' onClick={this.VotingHandler} id="DMK">Vote</td> */}
                     </tr>
                     <tr className='green-text'>

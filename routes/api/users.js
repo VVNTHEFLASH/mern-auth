@@ -12,6 +12,22 @@ const validateLoginInput = require("../../validation/login");
 // Load User model
 const User = require("../../models/User");
 
+router.put("/:id", (req, res) => {
+  const id = req.params.id;
+  User.findByIdAndUpdate(id, req.body, {
+    useFindAndModify: false
+  }).then(() => {
+    res.send({ votedParty: req.body.votedParty, voteStatus: req.body.voteStatus })
+    console.log("Updated")
+  })
+})
+//route put api/users/update
+router.get("/", (req,res) => {
+  User.find().then(data => {
+    console.log("count")
+  })
+})
+
 // @route POST api/users/register
 // @desc Register user
 // @access Public

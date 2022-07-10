@@ -17,7 +17,7 @@ class Dashboard extends Component {
   
   render() {
     const { user } = this.props.auth;
-
+    console.log(user)
 
     let Profile = () => {
       return(
@@ -27,15 +27,13 @@ class Dashboard extends Component {
             <thead>
               <tr>
                 <th>Name</th>
-                <th>Unique ID</th>
-                <th>Action</th>
+                <th>Email ID</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>{user.name}</td>
-                <td>Unique ID</td>
-                <td><label className="white-text">UID</label><input type="text" /><button className="btn blue">Add</button></td>
+                <td> {user.name} </td>
+                <td> {user.id} </td>
               </tr>
             </tbody>
           </table>
@@ -82,7 +80,7 @@ class Dashboard extends Component {
             <Route exact path="/" component={Profile} />
             <Route path="/profile" component={Profile} />
             <Route path="/vote" component={Vote}  />
-            <Route path="//about" component={About} />
+            <Route path="/about" component={About} />
             <Route path="/help" component={Help} />
             <Route path="/liveresult" component={LiveResult} />
           </Switch>
