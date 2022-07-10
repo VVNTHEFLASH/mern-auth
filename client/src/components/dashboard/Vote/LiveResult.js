@@ -15,7 +15,7 @@ export default class LiveResult extends Component {
     }
   }
 
-  componentDidUpdate() {
+  componentDidMount() {
     axios.get("/api/users/").then(res => {
       this.setState({ 
         totalCount: res.data
@@ -83,7 +83,7 @@ export default class LiveResult extends Component {
         </div>
         {/* Statistics */}
         <div className='col s6 white-text'>
-            <div><h6>Statistics</h6></div>
+          <div><h6>Statistics</h6></div>
             <div className='container'>
               <div className='white'>
                 <label className='black-text'>Total No of Candidates</label>
@@ -93,6 +93,26 @@ export default class LiveResult extends Component {
                 <label className='white-text'>No of Candidates Not Voted</label>
                 <label className='white-text'>{" "}{this.state.notVotedCount}</label>
               </div>
+            </div>
+            <div>
+              <label>Leading Party</label>
+              <div className='white red-text'>
+                {
+                this.state.dmkCount > this.state.admkCount &&  
+                this.state.dmkCount > this.state.bjpCount &&
+                this.state.dmkCount > this.state.notaCount
+                ? `DMK is Leading with ${this.state.dmkCount} votes` :
+                this.state.admkCount > this.state.dmkCount &&
+                this.state.admkCount > this.state.bjpCount &&
+                this.state.admkCount > this.state.notaCount
+                ?  `ADMK is Leading with ${this.state.admkCount} votes` :
+                this.state.bjpCount > this.state.dmkCount && 
+                this.state.bjpCount > this.state.admkCount && 
+                this.state.bjpCount > this.state.notaCount 
+                ? `BJP is Leading with ${this.state.bjpCount} votes` :
+               `NOTA is Leading with ${this.state.notaCount} votes`    
+                }
+              </div> 
             </div>
         </div>
       </div>
