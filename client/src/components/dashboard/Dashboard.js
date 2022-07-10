@@ -27,7 +27,7 @@ class Dashboard extends Component {
             <thead>
               <tr>
                 <th>Name</th>
-                <th>Email ID</th>
+                <th>Unique ID</th>
               </tr>
             </thead>
             <tbody>

@@ -4,7 +4,7 @@ export default class About extends Component {
   render() {
     return (
         <>
-        <div>
+        <div className='white-text'>
           <div>
             E-Voting System Application is Live.
           </div>
