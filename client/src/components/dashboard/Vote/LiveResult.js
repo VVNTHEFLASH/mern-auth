@@ -3,8 +3,8 @@ import axios from "axios";
 
 export default class LiveResult extends Component {
 
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state = {
       dmkCount: 0,
       admkCount: 0,
@@ -15,9 +15,47 @@ export default class LiveResult extends Component {
     }
   }
 
-  componentDidMount() {
-   axios.get("/api/users/").then(res => {
-      this.setState({ totalCount: this.state.totalCount})
+  componentDidUpdate() {
+    axios.get("/api/users/").then(res => {
+      this.setState({ 
+        totalCount: res.data
+      })
+    }).catch(err => { console.log(err) })
+
+    axios.get("/api/users/dmk").then(res => {
+      this.setState({ 
+        dmkCount: res.data
+      })
+    }).catch(err => { console.log(err) })
+
+    axios.get("/api/users/admk").then(res => {
+      this.setState({ 
+        admkCount: res.data
+      })
+    }).catch(err => { console.log(err) })
+
+    axios.get("/api/users/bjp").then(res => {
+      this.setState({ 
+        bjpCount: res.data
+      })
+    }).catch(err => { console.log(err) })
+
+    axios.get("/api/users/bjp").then(res => {
+      this.setState({ 
+        bjpCount: res.data
+      })
+    }).catch(err => { console.log(err) })
+
+    axios.get("/api/users/nota").then(res => {
+      this.setState({ 
+        notaCount: res.data
+      })
+    }).catch(err => { console.log(err) })
+
+    axios.get("/api/users/nv").then(res => {
+      this.setState({ 
+        notVotedCount: res.data
+      })
     }).catch(err => { console.log(err) })
   }
 
@@ -46,9 +84,15 @@ export default class LiveResult extends Component {
         {/* Statistics */}
         <div className='col s6 white-text'>
             <div><h6>Statistics</h6></div>
-            <div>
-              Total Voter {this.state.totalCount}
-              Not Voted {this.state.notVotedCount}
+            <div className='container'>
+              <div className='white'>
+                <label className='black-text'>Total No of Candidates</label>
+                <label className='black-text'>{" "}{this.state.totalCount}</label>
+              </div>
+              <div className="grey">
+                <label className='white-text'>No of Candidates Not Voted</label>
+                <label className='white-text'>{" "}{this.state.notVotedCount}</label>
+              </div>
             </div>
         </div>
       </div>

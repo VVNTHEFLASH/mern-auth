@@ -13,6 +13,7 @@ const validateLoginInput = require("../../validation/login");
 const User = require("../../models/User");
 const { countDocuments } = require("../../models/User");
 
+// route put by id
 router.put("/:id", (req, res) => {
   const id = req.params.id;
   User.findByIdAndUpdate(id, req.body, {
@@ -22,27 +23,59 @@ router.put("/:id", (req, res) => {
     console.log("Updated")
   })
 })
-//route put api/users/update
+//route get api/users/
 router.get("/", (req,res) => {
+
   User.estimatedDocumentCount({}).then(count => {
+    res.json(count)
     console.log(`Total Candidates: ${count}`)
-  })
-  User.find({ votedParty: "DMK"}).countDocuments().then(count => {
-    console.log(`DMK Vote Count ${count}`)
-  })
-  User.find({ votedParty: "ADMK"}).countDocuments().then(count => {
-    console.log(`ADMK Vote Count ${count}`)
-  })
-  User.find({ votedParty: "BJP"}).countDocuments().then(count => {
-    console.log(`BJP Vote Count ${count}`)
-  })
-  User.find({ votedParty: "NOTA"}).countDocuments().then(count => {
-    console.log(`NOTA Vote Count ${count}`)
-  })
-  User.find({ votedParty: "NV"}).countDocuments().then(count => {
-    console.log(`Not-Voted Count ${count}`)
-  })
+  }).catch(err => console.log(err))
+
+
+
+
+
+
+
+
+
 })
+
+router.get("/dmk", (req, res) => {
+  User.find({ votedParty: "DMK"}).countDocuments().then(dmkCount => {
+    console.log(`DMK Vote Count ${dmkCount}`)
+    res.json(dmkCount)
+  }).catch(err => console.log(err))
+})
+
+router.get("/admk", (req, res) => {
+  User.find({ votedParty: "ADMK"}).countDocuments().then(admkCount => {
+    console.log(`ADMK Vote Count ${admkCount}`)
+    res.json(admkCount)
+  }).catch(err => console.log(err))
+})
+
+router.get("/bjp", (req, res) => {
+  User.find({ votedParty: "BJP"}).countDocuments().then(bjpCount => {
+    console.log(`BJP Vote Count ${bjpCount}`)
+    res.json(bjpCount)
+  }).catch(err => console.log(err))
+})
+
+router.get("/nota", (req, res) => {
+  User.find({ votedParty: "NOTA"}).countDocuments().then(notaCount => {
+    console.log(`NOTA Vote Count ${notaCount}`)
+    res.json(notaCount)
+  }).catch(err => console.log(err))
+})
+
+router.get("/nv", (req, res) => {
+  User.find({ votedParty: "NV"}).countDocuments().then(nvCount => {
+    console.log(`Not-Voted Count ${nvCount}`)
+    res.json(nvCount)
+  }).catch(err => console.log(err))
+})
+
 
 // @route POST api/users/register
 // @desc Register user
